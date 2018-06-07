@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+}
+/* input  */
+.input-textboxes {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+
+}
+
+/* table */
+.table-table {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.table-table td, .table-table th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+.table-table tbody td {
+  font-size: 15px;
+}
+.table-table tr:nth-child(even) {
+  background: #D0E4F5;
+}
+.table-table thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+.table-table thead th {
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+.table-table thead th:first-child {
+  border-left: none;
+}
+
+/* buttons */
+/* .buttons {
+  border-top: 1px solid #96d1f8;
+  background: #65a9d7;
+  background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
+  background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+  background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+  background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+  background: -o-linear-gradient(top, #3e779d, #65a9d7);
+  padding: 5px 10px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+  box-shadow: rgba(0,0,0,1) 0 1px 0;
+  text-shadow: rgba(0,0,0,.4) 0 1px 0;
+  color: white;
+  font-size: 14px;
+  font-family: Georgia, serif;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.buttons:hover {
+  border-top-color: #28597a;
+  background: #28597a;
+  color: #ccc;
+}
+.buttons:active {
+  border-top-color: #1b435e;
+  background: #1b435e;
+} */
+/* div container */
+.div-container {
+  background: rgb(163, 168, 135);
+  border: 1px solid #AAAAAA;
+  padding: 10px;
+  color: mediumblue;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.labels {
+  padding-left:26px;
+  width:125px;
+  text-transform: uppercase;
+  display:inline-block
+}

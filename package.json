@@ -1,0 +1,17 @@
+{
+  "name": "react-express-app",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && npm start --open",
+    "server": "node employee-server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongodb": "^3.1.0-beta4",
+    "mongoose": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
