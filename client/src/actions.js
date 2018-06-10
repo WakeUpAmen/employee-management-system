@@ -5,7 +5,7 @@ export function getAllEmployeesFromServer() {
         dispatch(dataLoading(true));
         axios.get("http://localhost:8888/api/employees/")
         .then(response => {
-            console.log("get all")
+            console.log("get all employees:")
             console.log(response.data)
             dispatch(getAll(response.data));
             dispatch(dataLoading(false));
@@ -24,8 +24,6 @@ export function getEmployeeByIdFromServer(id) {
             id: id
         })
         .then((response) => {
-            console.log("get user by id")
-            console.log(response.data.employee)
             dispatch(getEmployeeById(response.data.employee));
             // dispatch(getChildren(response.data.manager));
             dispatch(dataLoading(false));
@@ -44,10 +42,12 @@ export function addOneToServer(emlpoyeeDate) {
             employee: emlpoyeeDate
         })
         .then((response) => {
+            console.log(" add ok")
             dispatch(newEmployeeCompleted(true));
             dispatch(dataLoading(false));
         })
         .catch(err => {
+            console.log("add bad")
             dispatch(getDataError(true));
             dispatch(dataLoading(false));
         });
@@ -80,8 +80,9 @@ export function deleteOneFromServer(id) {
             id:id,
         })
         .then((response) => {
+            console.log("delete okokok")
             console.log(response.data);
-            dispatch(deleteEmployeeCompleted(true));
+            // dispatch(deleteEmployeeCompleted());
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -183,9 +184,8 @@ export const newEmployeeCompleted =val=>({
     val
 })
 
-export const deleteEmployeeCompleted =val =>({
+export const deleteEmployeeCompleted =() =>({
     type: 'DELETEEMPLOYEE_COMPLETED',
-    val
 })
 
 export const deleteEmployee =index =>({

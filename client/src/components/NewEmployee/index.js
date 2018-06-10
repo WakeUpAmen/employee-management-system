@@ -8,7 +8,7 @@ class NewEmployee extends Component{
         super(props);
         this.state ={picture: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"", startDate:""};     
     } 
-    getUserInfo = () => {
+    getEmployeeInfo = () => {
         let employee ={
             picture:this.state.picture,
             name: this.state.name,
@@ -24,20 +24,39 @@ class NewEmployee extends Component{
         }
         this.props.addOneToServer(employee);    
     }
-    fnchange=(e)=>{
-        this.setState({firstname: e.target.value});
+    pictureChange=(e)=>{
+        this.setState({picture: e.target.value});
     }
-    lnchange=(e)=>{
-        this.setState({lastname: e.target.value});
+    nameChange=(e)=>{
+        this.setState({name: e.target.value});
     }
-    sexchange=(e)=>{
+    titleChange=(e)=>{
+        this.setState({title: e.target.value});
+    }
+    sexChange=(e)=>{
         this.setState({sex: e.target.value});
     }
-    agechange=(e)=>{
-        this.setState({age: e.target.value});
+    officePhoneChange=(e)=>{
+        this.setState({officePhone: e.target.value});
     }
-    pwdchange=(e)=>{
-        this.setState({pwd: e.target.value});
+    cellPhoneChange=(e)=>{
+        this.setState({cellPhone: e.target.value});
+    }
+
+    SMSChange=(e)=>{
+        this.setState({SMS: e.target.value});
+    }
+    emailChange=(e)=>{
+        this.setState({email: e.target.value});
+    }
+    childrenChange=(e)=>{
+        this.setState({children: e.target.value});
+    }
+    managerChange=(e)=>{
+        this.setState({manager: e.target.value});
+    }
+    startDateChange=(e)=>{
+        this.setState({startDate: e.target.value});
     }
     render (){
         return(

@@ -29,8 +29,8 @@ export const myEmployeeListR =(state = initialState, action)=>{
             return {...state, editEmployeeCompleted: action.val};
         case 'NEWEMPLOYEE_COMPLETED':
             return {...state, newEmployeeCompleted: action.val};
-        case 'DELETEUSER_COMPLETED':
-            return {...state, deleteEmployeeCompleted: action.val}
+        case 'DELETEEMPLOYEE_COMPLETED':
+            return {...state, deleteEmployeeCompleted: !state.deleteEmployeeCompleted}
         case 'SET_SORT':
             let arr5 = [];
             state.filteredEmployees.forEach(element => {
@@ -67,8 +67,8 @@ export const myEmployeeListR =(state = initialState, action)=>{
             return {...state, page: state.page - 1, pageEmployees: state.filteredEmployees.slice((state.page - 2) * 5, (state.page - 2) * 5+5)};
         case 'SET_FILTERTEXT':
             return {...state, filterText: action.text, filteredEmployees: state.employees.filter(employee=>employee.name.indexOf(action.text) !== -1), pageEmployees: state.filteredEmployees.slice((state.page -1) * 5, (state.page-1) * 5+5)};
-        case 'GET_EMPLOYEE_BYID':
-            return {...state, page:action.page, pageEmployees: state.filteredEmployees.slice((action.page -1) * 5, (action.page-1) * 5+5)}
+        // case 'GET_PAGEEMPLOYEES':
+        //     return {...state, page:action.page, pageEmployees: state.filteredEmployees.slice((action.page -1) * 5, (action.page-1) * 5+5)}
         default:
             return state;
     }

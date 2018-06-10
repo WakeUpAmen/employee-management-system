@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
 import EmployeeRow from './EmployeeRow';
+import * as actions from '../../actions';
+import {connect} from 'react-redux';
+
 
 class EmployeeTable extends Component {
     constructor(props){
         super(props);
     }
+
     editRowCallBack=()=>{
         this.props.callbackFromRoot_edit();
     }
 
     render() {
         const rows = [];
-        console.log("table users")
-        console.log(this.props.users)
         this.props.employees.forEach((employee) => {
                 rows.push( <EmployeeRow 
                                 _id = {employee._id}
@@ -62,4 +64,17 @@ class EmployeeTable extends Component {
     }
 }
 
-export default EmployeeTable;
+const mapStateToProps = state => {
+    console.log("home map, state.employees")
+    return {
+        employees: state.myEmployeeListR.employees,
+    }
+};
+
+function mapDispatchToProps(dispatch) {
+    return({
+        getAllEmployeesFromServer: () =>{dispatch(actions.getAllEmployeesFromServer())},
+      })
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeTable);

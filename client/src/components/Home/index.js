@@ -39,11 +39,10 @@ class Home extends Component {
             <div className="div-container">
                 <SearchBar filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
                 <EmployeeTable
-                    employees={this.props.pageEmployees}
                     filterText={this.props.filterText}
                     deleteOneEmployee={this.deleteOneEmployee}
-                    itemNum = {5}
-                    page = {this.props.page}
+                    itemNum = {10}
+                    // page = {this.props.page}
                     pictureSort = {this.pictureSort}
                     nameSort ={this.nameSort}
                     titleSort={this.titleSort}
@@ -55,14 +54,13 @@ class Home extends Component {
                     childrenSort={this.childrenSort}
                     managerSort={this.managerSort}
                     startDateSort={this.startDateSort}
-                    // deleteUserCompleted={this.props.deleteUserCompleted}
                 />
                 <Pages 
                     minusOnepage = {this.props.minusOnepage} 
                     addOnePage = {this.props.addOnePage} 
                     page = {this.props.page} 
-                    pages={this.props.filteredEmployees.length/5 == Math.floor(this.props.filteredEmployees.length/5)? this.props.filteredEmployees.length/5 : Math.floor(this.props.filteredEmployees.length/5)+ 1}
-                    getPageEmployees={this.getPageEmployees}
+                    // pages={this.props.filteredEmployees.length/5 == Math.floor(this.props.filteredEmployees.length/5)? this.props.filteredEmployees.length/5 : Math.floor(this.props.filteredEmployees.length/5)+ 1}
+                    // getPageEmployees={this.getPageEmployees}
                 />
                 <button className="buttons" ><Link to="/newemployee">Cerate new user</Link></button>
             </div>
@@ -71,22 +69,20 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("home index")
-    console.log(state.users)
+    console.log("home map, state.employees")
+    console.log(state.employees)
     return {
-        // users: state.myUserListR.users,
-        filteredEmployees: state.myEmployeeListR.filteredEmployees,
-        pageEmployees: state.myEmployeeListR.pageEmployees,
+        // filteredEmployees: state.myEmployeeListR.filteredEmployees,
+        // pageEmployees: state.myEmployeeListR.pageEmployees,
         filterText: state.myEmployeeListR.filterText,
-        page: state.myEmployeeListR.page,
+        // page: state.myEmployeeListR.page,
         hasErrored: state.myEmployeeListR.hasError,
         dataLoading: state.myEmployeeListR.dataLoading,
-        // deleteUserCompleted: state.deleteUserCompleted,
+        employees: state.myEmployeeListR.employees,
     }
 };
 
 function mapDispatchToProps(dispatch) {
-    console.log("home dispatch")
     return({
         setFilterText:(text) =>{dispatch(actions.setFilterText(text))},
         addOnePage: () =>{dispatch(actions.pageIncrement)},
@@ -97,7 +93,6 @@ function mapDispatchToProps(dispatch) {
         editEmployeeCompleted:(val) =>{dispatch(actions.editEmployeeCompleted(val))},
         newEmployeeCompleted:(val) => {dispatch(actions.newEmployeeCompleted(val))},
         getPageEmployees:(page)=>{dispatch(actions.getPageEmployees(page))},
-        // deleteUserCompleted: (val) => {dispatch(actions.deleteUserCompleted(val))},
       })
 };
 
