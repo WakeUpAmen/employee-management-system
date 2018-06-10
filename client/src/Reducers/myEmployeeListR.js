@@ -5,6 +5,8 @@ import {createStore, applyMiddleware} from 'redux';
 
 const initialState ={
     employees: [],
+    children: [],
+    manager:[],
     filteredEmployees: [],
     pageEmployees: [],
     page: 1,
@@ -69,6 +71,10 @@ export const myEmployeeListR =(state = initialState, action)=>{
             return {...state, filterText: action.text, filteredEmployees: state.employees.filter(employee=>employee.name.indexOf(action.text) !== -1), pageEmployees: state.filteredEmployees.slice((state.page -1) * 5, (state.page-1) * 5+5)};
         // case 'GET_PAGEEMPLOYEES':
         //     return {...state, page:action.page, pageEmployees: state.filteredEmployees.slice((action.page -1) * 5, (action.page-1) * 5+5)}
+        case 'GET_CHILDREN':
+            return {...state, children: action.data};
+        case 'GET_MANAGER':
+            return {...state, manager: action.data};
         default:
             return state;
     }

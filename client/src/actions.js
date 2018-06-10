@@ -25,7 +25,8 @@ export function getEmployeeByIdFromServer(id) {
         })
         .then((response) => {
             dispatch(getEmployeeById(response.data.employee));
-            // dispatch(getChildren(response.data.manager));
+            dispatch(getChildren(response.data.children));
+            dispatch(getmanager(response.data.manager))
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -196,4 +197,13 @@ export const deleteEmployee =index =>({
 export const getPageEmployees=(page)=>({
     type: 'GET_EMPLOYEES',
     page
+})
+export const getChildren=(data)=>({
+    type: 'GET_CHILDREN',
+    data
+})
+
+export const getmanager =(data)=>({
+    type: 'GET_MANAGER',
+    data
 })

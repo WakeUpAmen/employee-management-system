@@ -37,7 +37,13 @@ class Home extends Component {
         }
         return (
             <div className="div-container">
-                <SearchBar filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
+                <div style={{width: "60%", float: "left"}}>
+                    <SearchBar  filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
+                </div>
+                <div style={{width: "40%", float: "right"}}>
+                    <button  className="buttons" ><Link to="/newemployee">Cerate new user</Link></button>
+
+                </div>
                 <EmployeeTable
                     filterText={this.props.filterText}
                     deleteOneEmployee={this.deleteOneEmployee}
@@ -55,14 +61,13 @@ class Home extends Component {
                     managerSort={this.managerSort}
                     startDateSort={this.startDateSort}
                 />
-                <Pages 
+                {/* <Pages 
                     minusOnepage = {this.props.minusOnepage} 
                     addOnePage = {this.props.addOnePage} 
                     page = {this.props.page} 
                     // pages={this.props.filteredEmployees.length/5 == Math.floor(this.props.filteredEmployees.length/5)? this.props.filteredEmployees.length/5 : Math.floor(this.props.filteredEmployees.length/5)+ 1}
                     // getPageEmployees={this.getPageEmployees}
-                />
-                <button className="buttons" ><Link to="/newemployee">Cerate new user</Link></button>
+                /> */}
             </div>
         );
     }

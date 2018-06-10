@@ -14,8 +14,14 @@ class EmployeeRow extends Component {
                 <td>{this.props.cellPhone}</td>
                 <td>{this.props.SMS}</td>
                 <td>{this.props.email}</td>
-                <td>{this.props.children}</td>
-                <td>{this.props.manager}</td>
+                {
+                    this.props.children != 0? <td><Link to={{ pathname: `/children/${this.props._id}`  }}>{this.props.children}</Link></td>:
+                    <td>{this.props.children}</td>
+                }
+                {
+                    this.props.manager === null? <td>------</td>:
+                    <td><Link to={{ pathname: `/editemployee/${this.props._id}` }}>{this.props.manager}</Link></td>
+                }
                 <td>{this.props.startDate}</td>
             </tr>
         );

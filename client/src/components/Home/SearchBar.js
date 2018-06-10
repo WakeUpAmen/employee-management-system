@@ -7,14 +7,12 @@ class SearchBar extends Component {
   
     render() {
         return (
-            <div className="div-container">
-            <input className="input-textboxes"
+            <input 
                 type="text"
                 placeholder="Search..."
                 value={this.props.filterText}
                 onChange={this.handleFilterTextChange}
             />
-            </div>
         );
     }
 }

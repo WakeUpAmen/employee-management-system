@@ -4,6 +4,8 @@ import './App.css';
 import Home from './components/Home';
 import NewEmployee from './components/NewEmployee';
 import EditEmployee from './components/EditEmployee';
+import ChildrenList from './components/ChildrenList';
+
 
 /* App component */
 class App extends Component {
@@ -14,6 +16,7 @@ class App extends Component {
             <Route exact={true} path="/" component={Home} />
             <Route path="/editemployee/:employeeId" component={EditEmployee} />
             <Route path="/newemployee" component={NewEmployee} />
+            <Route path="/children/:employeeId" component={ChildrenList} />
             </Switch>
       </BrowserRouter>
     );
