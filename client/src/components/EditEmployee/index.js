@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
-import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
+import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuItem,Image} from 'react-bootstrap';
 
 
 
@@ -28,6 +28,7 @@ class EditEmployee extends Component{
             email: this.props.email,
             children: this.props.children,
             manager: this.props.manager,
+            managerName: this.props.managerName,
             startDate: this.props.startDate,
         }
         this.props.updateOneToServer(this.props.match.params.employeeId, employee);
@@ -65,8 +66,9 @@ class EditEmployee extends Component{
     childrenChange=(e)=>{
         this.props.setChildren(e.target.value);
     }
-    managerChange=(e)=>{
-        this.props.setManager(e.target.value);
+    managerChange=(eventKey, e)=>{
+        this.props.setManager(eventKey);
+        this.props.setManagerName(e.target.innerHTML);
     }
     startDateChange=(e)=>{
         this.props.setStartDate(e.target.value);
@@ -86,48 +88,68 @@ class EditEmployee extends Component{
     // }
     render (){
         // console.log("render")
-        // let offsprings = this.getOffsprings(this.props.match.params.employeeId)
         return(
-            <div className="div-container">
-                <label className="labels">Picture:</label>
-                <input className="input-textboxes" type="file"  onChange={this.pictureChange}/>
-                <div>
-                    {<img src={this.props.picture} />}
-                </div>
-                <label className="labels">Name:</label>
-                <input className="input-textboxes" type="text" value = {this.props.name} onChange={this.nameChange}/><br/>
-                <label className="labels">Title:</label>
-                <input className="input-textboxes" type="text" value = {this.props.title} onChange={this.titleChange} /><br/>
-                <label className="labels">Sex:</label>
-                <input className="input-textboxes" type="text" value = {this.props.sex} onChange={this.sexChange} /><br/>
-                <label className="labels">Office Phone:</label>
-                <input className="input-textboxes" type="text" value = {this.props.officePhone} onChange={this.officePhoneChange}/><br/>
-                <label className="labels">Cell Phone:</label>
-                <input className="input-textboxes" type="text" value = {this.props.cellPhone} onChange={this.cellPhoneChange}/><br/>
-                <label className="labels">SMS:</label>
-                <input className="input-textboxes" type="text" value = {this.props.SMS} onChange={this.SMSChange}/><br/>
-                <label className="labels">Email:</label>
-                <input className="input-textboxes" type="text" value = {this.props.email} onChange={this.emailChange}/><br/>
-                <label className="labels">Reporters:</label>
-                <input className="input-textboxes" type="text" value = {this.props.children} onChange={this.childrenChange}/><br/>
-                <label className="labels">Manager:</label>
-                <DropdownButton
-                    bsStyle="default"
-                    title={this.props.manager}
-                >
-                <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
-                {
-                    this.props.employees.map(employee=>{
-                        return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
-                    })
-                }
-                </DropdownButton><br/>
-                {/* <input className="input-textboxes" type="text" value = {this.props.manager} onChange={this.managerChange}/><br/> */}
-                <label className="labels">Start Date:</label>
-                <input className="input-textboxes" type="text" value = {this.props.startDate} onChange={this.startDateChange}/><br/>
-                <button className="buttons" onClick ={this.getEmployeeInfo} >Save User</button>  
+            <Form horizontal className="forms">
+                <Button className="buttons" style={{width: "20%", float: "right"}} ><Link to={{ pathname: '/'  }}>Home</Link></Button>
+
+                <FormGroup>
+                <ControlLabel className="labels">Picture:</ControlLabel>
+                <FormControl  type="file"  onChange={this.pictureChange}/>
+                    {<Image src={this.props.picture} rounded />}
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Name:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.name} onChange={this.nameChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Title:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.title} onChange={this.titleChange} />
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Sex:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.sex} onChange={this.sexChange} />
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Office Phone:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.officePhone} onChange={this.officePhoneChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Cell Phone:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.cellPhone} onChange={this.cellPhoneChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">SMS:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.SMS} onChange={this.SMSChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Email:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.email} onChange={this.emailChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Reporters:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.children} onChange={this.childrenChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Manager:</ControlLabel><br/>
+                    <DropdownButton
+                        bsStyle="default"
+                        title={this.props.managerName == null? "------":this.props.managerName}  
+                    >
+                    <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
+                    {
+                        this.props.employees.map(employee=>{
+                            return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
+                        })
+                    }
+                    </DropdownButton>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Start Date:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.props.startDate} onChange={this.startDateChange}/><br/>
+                </FormGroup>
+                <Button className="buttons" onClick ={this.getEmployeeInfo} >Save User</Button>  
                 {this.props.editEmployeeCompleted && <Redirect to={{pathname: '/', state: {from: this.props.location} }}/>}
-            </div>
+            </Form>
         );
     }
 }
@@ -147,6 +169,7 @@ const mapStateToProps = state => {
         email: state.editEmployeeR.email,
         children: state.editEmployeeR.children,
         manager: state.editEmployeeR.manager,
+        managerName: state.editEmployeeR.managerName,
         startDate: state.editEmployeeR.startDate,
         editEmployeeCompleted: state.myEmployeeListR.editEmployeeCompleted,
     }
@@ -168,6 +191,7 @@ function mapDispatchToProps(dispatch) {
         setChildren:(text) => {dispatch(actions.setChildren(text))},
         setManager:(text) => {dispatch(actions.setManager(text))},
         setStartDate:(text) => {dispatch(actions.setStartDate(text))},
+        setManagerName:(text)=>{dispatch(actions.setManagerName(text))},
 
       })
 };

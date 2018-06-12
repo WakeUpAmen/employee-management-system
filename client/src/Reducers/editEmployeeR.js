@@ -6,7 +6,7 @@ import myEmployeeListR from "./myEmployeeListR";
 
 const initialState ={
     offsprings:[],
-    _id: "",picture: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"", startDate:""
+    _id: "",picture: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"", startDate:"", managerName:"",
   };
 //reducer
 
@@ -32,6 +32,8 @@ export const editEmployeeR =(state = initialState, action)=>{
             return {...state, sex: action.text};
         case 'SET_MANAGER':
             return {...state, manager: action.text};
+        case 'SET_MANAGERNAME':
+            return{...state, managerName:action.text};
         case 'SET_STARTDATE':
             return {...state, startDate: action.text};
         case 'GET_EMPLOYEE_BYID':

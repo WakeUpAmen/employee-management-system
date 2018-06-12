@@ -51,9 +51,9 @@ var EmployeeSchema   = new Schema({
         required: false,
         default: null
     },
-    preManager: {
+    managerName: {
         type:String,
-        default:""
+        default:null
     },
 });
 

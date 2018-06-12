@@ -27,7 +27,8 @@ class ChildrenTable extends Component {
                                 email = {employee.email}
                                 picture ={employee.picture}
                                 children ={employee.children.length}
-                                manager ={employee.manager}
+                                managerName ={employee.managerName}
+                                manager={employee.manager}
                                 startDate={employee.startDate}
                                 editRow={this.props.editRowCallBack} 
                                 deleteRow ={this.props.deleteOneEmployee} 
@@ -64,6 +65,8 @@ class ChildrenTable extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log("children:")
+    console.log(state.myEmployeeListR.children)
     return {
         employees: state.myEmployeeListR.children,
     }

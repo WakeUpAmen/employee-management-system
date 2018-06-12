@@ -29,6 +29,7 @@ class EmployeeTable extends Component {
                                 picture ={employee.picture}
                                 children ={employee.children.length}
                                 manager ={employee.manager}
+                                managerName ={employee.managerName}
                                 startDate={employee.startDate}
                                 editRow={this.props.editRowCallBack} 
                                 deleteRow ={this.props.deleteOneEmployee} 

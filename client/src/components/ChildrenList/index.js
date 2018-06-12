@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import ChildrenTable from './ChildrenTable';
 import * as actions from '../../actions';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 class ChildrenList extends Component {
     componentDidMount(){

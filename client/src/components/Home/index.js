@@ -44,7 +44,7 @@ class Home extends Component {
                     <SearchBar  filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
                 </div>
                 <div style={{width: "40%", float: "right"}}>
-                    <Button  className="buttons" ><Link to="/newemployee">Cerate new user</Link></Button>
+                    <Button  className="buttons" ><Link to="/newemployee">Create new user</Link></Button>
 
                 </div>
                 <ScrollArea speed={0.8} className="area"   horizontal={true} vertical ={true}>

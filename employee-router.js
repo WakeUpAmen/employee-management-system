@@ -59,7 +59,7 @@ routerEmployees.get('/employees/:id', (req, res) => {
         } else {
             // console.log(employee._id)
             let childrenID = employee.children;
-            // console.log(childrenID[0])
+            console.log(childrenID)
             let managerID = employee.manager;
             // console.log(managerID)
             Employee.find((err, employees)=>{
@@ -68,8 +68,8 @@ routerEmployees.get('/employees/:id', (req, res) => {
                 }else{
                    res.status(200).json({
                        employee,
-                       children: employees.filter(em =>childrenID.includes(em.id)),
-                       manager: employees.filter(em => managerID == em.id)
+                       children: employees.filter(em =>childrenID.includes(String(em._id))),
+                       manager: employees.filter(em => managerID == String(em._id))
                    })
                 }
             })
@@ -101,7 +101,7 @@ routerEmployees.put('/employees/:_id', (req, res) => {
                                 if (err) {
                                     res.status(500).json({ error: err });
                                 }else{
-                                    Employee.update({_id: req.params._id}, {$set: {manager: req.body.employee.manager}}, (err, em)=>{
+                                    Employee.update({_id: req.params._id}, {$set: {manager: req.body.employee.manager, managerName: req.body.employee.managerName}}, (err, em)=>{
                                         if(err){
                                             res.status(500).json({err:err})
                                         }else{
@@ -128,7 +128,7 @@ routerEmployees.put('/employees/:_id', (req, res) => {
                                 } else{
                                     // res.status(200).json({ message: 'cur manager push success!' });
                                     // Employee.update(req.params.id, req.body.employee, (err, em)=>{
-                                    Employee.update({_id: req.params._id}, {$set: {manager: req.body.employee.manager}}, (err, em)=>{
+                                    Employee.update({_id: req.params._id}, {$set: {manager: req.body.employee.manager, managerName: req.body.employee.managerName}}, (err, em)=>{
                                         if(err){
                                             res.status(500).json({err:err})
                                         }else{
@@ -165,7 +165,7 @@ routerEmployees.put('/employees/:_id', (req, res) => {
                                                     console.log("cur manager push error")
                                                     res.status(500).json({ error: err});
                                                 } else{
-                                                    Employee.update({_id: req.params._id}, {$set: {manager: req.body.employee.manager}}, (err, em)=>{
+                                                    Employee.update({_id: req.params._id}, {$set: {manager: req.body.employee.manager, managerName: req.body.employee.managerName}}, (err, em)=>{
                                                         if(err){
                                                             console.log("seft save error")
                                                             res.status(500).json({error:err})
@@ -211,7 +211,7 @@ routerEmployees.delete('/employees/:id', (req, res) => {
                         if(err){
                             res.status(500).json({error: err});
                         }else{
-                            Employee.update({manager: req.params.id}, {$set: {manager: null}}, {multi: true}, (err, childrenEE)=>{
+                            Employee.update({manager: req.params.id}, {$set: {manager: null, managerName: null}}, {multi: true}, (err, childrenEE)=>{
                                 if(err){
                                     res.status(500).json({error:err});
                                 }else{

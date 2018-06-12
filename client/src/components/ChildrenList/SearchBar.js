@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
-import {FormControl} from 'react-bootstrap';
+import {FormControl, Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+
 
 
 class SearchBar extends Component {
@@ -13,12 +15,16 @@ class SearchBar extends Component {
     render() {
         return (
             <div className="div-container">
-                <FormControl className="input-textboxes"
+                <FormControl 
+                    style={{width: "50%", float: "left"}}
+                    className="input-textboxes"
                     type="text"
                     placeholder="Search..."
                     value={this.props.filterText}
                     onChange={this.handleFilterTextChange}
                 />
+                <Button className="buttons" style={{width: "20%", float: "right"}} ><Link to={{ pathname: '/'  }}>Home</Link></Button>
+
             </div>
         );
     }

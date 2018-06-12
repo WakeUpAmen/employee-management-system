@@ -166,6 +166,10 @@ export const setManager= (text) =>({
     type: 'SET_MANAGER',
     text
 })
+export const setManagerName=(text)=>({
+    type: 'SET_MANAGERNAME',
+    text
+})
 export const setStartDate= (text) =>({
     type: 'SET_STARTDATE',
     text

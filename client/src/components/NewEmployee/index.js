@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
-import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
+import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuItem, Image} from 'react-bootstrap';
 
 
 class NewEmployee extends Component{
     constructor(props){
         super(props);
-        this.state ={file: "", imagePreviewUrl: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"manager name", startDate:""};     
+        this.state ={file: "", imagePreviewUrl: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"manager name", startDate:"", name:""};     
     } 
     pictureChange=(e)=>{
         e.preventDefault();
@@ -33,8 +33,9 @@ class NewEmployee extends Component{
             cellPhone: this.state.cellPhone,
             SMS: this.state.SMS,
             email: this.state.email,
-            children: this.state.children,
+            children: [],
             manager: this.state.manager,
+            managerName: this.state.managerName,
             startDate: this.state.startDate
         }
         this.props.addOneToServer(employee);    
@@ -73,52 +74,72 @@ class NewEmployee extends Component{
     render (){
         let imagePreview = null;
         if (this.state.imagePreviewUrl) {
-            imagePreview = (<img src={this.state.imagePreviewUrl} />);
+            imagePreview = (<Image src={this.state.imagePreviewUrl} rounded/>);
         } else {
             imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
         console.log(this.props.employees)
         return(
-            <div className="div-container">
-                <label className="labels">Picture:</label>
-                <input className="input-textboxes" type="file"  onChange={this.pictureChange}/>
-                <div>
+            <Form horizontal className="forms">
+                <FormGroup>
+                <ControlLabel className="labels">Picture:</ControlLabel>
+                <FormControl className="input-textboxes" type="file"  onChange={this.pictureChange}/>
                     {imagePreview}
-                </div>
-                <label className="labels">Name:</label>
-                <input className="input-textboxes" type="text" value = {this.state.name} onChange={this.nameChange}/><br/>
-                <label className="labels">Title:</label>
-                <input className="input-textboxes" type="text" value = {this.state.title} onChange={this.titleChange}/><br/>
-                <label className="labels">Sex:</label>
-                <input className="input-textboxes" type="text" value = {this.state.sex} onChange={this.sexChange}/><br/>
-                <label className="labels">Office Phone:</label>
-                <input className="input-textboxes" type="text" value = {this.state.officePhone} onChange={this.officePhoneChange}/><br/>
-                <label className="labels">Cell Phone:</label>
-                <input className="input-textboxes" type="text" value = {this.state.cellPhone} onChange={this.cellPhoneChange}/><br/>
-                <label className="labels">SMS:</label>
-                <input className="input-textboxes" type="text" value = {this.state.SMS} onChange={this.SMSChange}/><br/>
-                <label className="labels">Email:</label>
-                <input className="input-textboxes" type="text" value = {this.state.email} onChange={this.emailChange}/><br/>
-                <label className="labels">Reportors:</label>
-                <input className="input-textboxes" type="text" value = {this.state.children} onChange={this.childrenChange}/><br/>
-                <label className="labels">Manager:</label>
-                <DropdownButton
-                    bsStyle="default"
-                    title={this.state.manager}
-                >
-                <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
-                {
-                    this.props.employees.map(employee=>{
-                        return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
-                    })
-                }
-                </DropdownButton><br/>
-                {/* <input className="input-textboxes" type="text" value = {this.state.manager} onChange={this.managerChange}/><br/> */}
-                <label className="labels">Start Date:</label>
-                <input className="input-textboxes" type="text" value = {this.state.startDate} onChange={this.startDateChange} /><br/>
-                <button className="buttons" onClick ={this.getEmployeeInfo} >Add Employee</button>  
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Name:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.name} onChange={this.nameChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Title:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.title} onChange={this.titleChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Sex:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.sex} onChange={this.sexChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">OfficePhone:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.officePhone} onChange={this.officePhoneChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">CellPhone:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.cellPhone} onChange={this.cellPhoneChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">SMS:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.SMS} onChange={this.SMSChange}/>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Email:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.email} onChange={this.emailChange}/>
+                </FormGroup>
+                {/* <FormGroup>
+                    <ControlLabel className="labels">Reportors:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.children} onChange={this.childrenChange}/>
+                </FormGroup> */}
+                <FormGroup>
+                    <ControlLabel className="labels">Manager:</ControlLabel><br/>
+                    <DropdownButton 
+                        width="150px"
+                        bsStyle="default"
+                        title={this.state.manager}
+                    >
+                    <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
+                    {
+                        this.props.employees.map(employee=>{
+                            return <MenuItem  eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
+                        })
+                    }
+                    </DropdownButton>
+                </FormGroup>
+                <FormGroup>
+                    <ControlLabel className="labels">Start Date:</ControlLabel>
+                    <FormControl className="input-textboxes" type="text" value = {this.state.startDate} onChange={this.startDateChange} /><br/>
+                </FormGroup>
+                <Button className="buttons" onClick ={this.getEmployeeInfo} >Add Employee</Button>  
                 {this.props.newEmployeeCompleted && <Redirect to={{pathname: '/', state: {from: this.props.location} }}/>}
-            </div>
+            </Form>
         );
     }
 }

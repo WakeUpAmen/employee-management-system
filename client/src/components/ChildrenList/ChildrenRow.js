@@ -21,7 +21,7 @@ class ChildrenRow extends Component {
                 }
                 {
                     this.props.manager === null? <td>------</td>:
-                    <td><Link to={{ pathname: `/editemployee/${this.props._id}` }}>{this.props.manager}</Link></td>
+                    <td><Link to={{ pathname: `/editemployee/${this.props.manager}` }}>{this.props.managerName}</Link></td>
                 }
                 <td>{this.props.startDate}</td>
             </tr>

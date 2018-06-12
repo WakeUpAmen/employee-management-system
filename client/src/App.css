@@ -2,12 +2,11 @@
   text-align: center;
 }
 /* input  */
-.input-textboxes {
-  width: 50%;
+.input-textboxes, buttons {
+  width: 40%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-
 }
 
 /* table */
@@ -100,4 +99,7 @@
   height: 200px;
   background: #e5e5e5;
 }
-
+.forms {
+  width: 50%;
+  margin: 0 auto;
+}
