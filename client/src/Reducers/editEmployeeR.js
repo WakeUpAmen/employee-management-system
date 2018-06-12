@@ -29,7 +29,7 @@ export const editEmployeeR =(state = initialState, action)=>{
         case 'SET_EMAIL':
             return {...state, email: action.text};
         case 'SET_CHILDREN':
-            return {...state, sex: action.text};
+            return {...state, children: action.text};
         case 'SET_MANAGER':
             return {...state, manager: action.text};
         case 'SET_MANAGERNAME':
@@ -48,6 +48,7 @@ export const editEmployeeR =(state = initialState, action)=>{
                 email: action.employee.email,
                 children: action.employee.children, 
                 manager: action.employee.manager,
+                managerName: action.employee.managerName,
                 startDate: action.employee.startDate
             }
         // case 'GET_OFFSPRINGS':

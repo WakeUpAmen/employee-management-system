@@ -64,9 +64,9 @@ export const myEmployeeListR =(state = initialState, action)=>{
             return {...state, manager: action.data};
         case 'GET_OFFSPRINGS':
                 console.log("hahahah")
-                if(state.employees.filter(em=> String(em._id) == String(action.id))[0].children.length === 0){
+                // if(state.employees.filter(em=> String(em._id) == String(action.id))[0].children.length === 0){
                     return {...state, withoutoffsprings: state.employees.filter(x=>String(x._id) != String(action.id))};
-                }else{
+                // }else{
                     // console.log("len != 0")
                     // let queue = [...state.employees.filter(em=> String(em._id) == String(action.id))[0].children];
                     // let res = [...queue];
@@ -87,8 +87,8 @@ export const myEmployeeListR =(state = initialState, action)=>{
                     //         })
                     //     })
                     // }
-                    return {...state, withoutoffsprings: []};
-                }
+                    // return {...state, withoutoffsprings: []};
+                // }
                 
         default:
             return state;

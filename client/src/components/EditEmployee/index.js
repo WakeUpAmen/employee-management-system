@@ -125,15 +125,15 @@ class EditEmployee extends Component{
                     <ControlLabel className="labels">Email:</ControlLabel>
                     <FormControl className="input-textboxes" type="text" value = {this.props.email} onChange={this.emailChange}/>
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                     <ControlLabel className="labels">Reporters:</ControlLabel>
                     <FormControl className="input-textboxes" type="text" value = {this.props.children} onChange={this.childrenChange}/>
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup>
                     <ControlLabel className="labels">Manager:</ControlLabel><br/>
                     <DropdownButton
                         bsStyle="default"
-                        title={this.props.managerName == null? "------":this.props.managerName}  
+                        title={this.props.managerName}
                     >
                     <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
                     {
@@ -155,7 +155,7 @@ class EditEmployee extends Component{
 }
 
 const mapStateToProps = state => {
-    console.log("wothout:"+state.myEmployeeListR.withoutoffsprings)
+    console.log("wothout:"+state.myEmployeeListR.managerName)
     return {
         employees: state.myEmployeeListR.employees,
         withoutoffsprings: state.myEmployeeListR.withoutoffsprings,
@@ -183,7 +183,7 @@ function mapDispatchToProps(dispatch) {
         setPicture:(text)=>{dispatch(actions.setPicture(text))},
         setName:(text) => {dispatch(actions.setName(text))},
         setTitle:(text) => {dispatch(actions.setTitle(text))},
-        setSex:(text) => {dispatch(actions.setTitle(text))},
+        setSex:(text) => {dispatch(actions.setSex(text))},
         setOfficePhone:(text) => {dispatch(actions.setOfficePhone(text))},
         setCellPhone:(text)=>{dispatch(actions.setCellPhone(text))},
         setSMS:(text) => {dispatch(actions.setSMS(text))},
