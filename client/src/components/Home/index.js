@@ -34,7 +34,6 @@ class Home extends Component {
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
         }
-
         if (this.props.dataLoading) {
             return <p>Loading…</p>;
         }
@@ -43,7 +42,7 @@ class Home extends Component {
                 <div style={{width: "60%", float: "left"}}>
                     <SearchBar  filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
                 </div>
-                <div style={{width: "40%", float: "right"}}>
+                <div classname="div-container" style={{width: "40%", float: "right"}}>
                     <Button  className="buttons" ><Link to="/newemployee">Create new user</Link></Button>
 
                 </div>

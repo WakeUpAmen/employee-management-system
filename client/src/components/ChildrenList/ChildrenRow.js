@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import {Button, Image} from 'react-bootstrap';
 class ChildrenRow extends Component {
     render() {
         return (
             <tr>
                 <td><Button><Link to={{ pathname: `/editemployee/${this.props._id}` }}>Edit</Link></Button></td>
                 <td><Button onClick ={()=>this.props.deleteRow(this.props._id)} >Delete</Button></td>
-                <td><img src={this.props.picture}/></td>
+                <td><Image src={this.props.picture} rounded/></td>
                 <td>{this.props.name}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.sex}</td>

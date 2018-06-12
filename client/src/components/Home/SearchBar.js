@@ -9,12 +9,14 @@ class SearchBar extends Component {
   
     render() {
         return (
-            <FormControl 
-                type="text"
-                placeholder="Search..."
-                value={this.props.filterText}
-                onChange={this.handleFilterTextChange}
-            />
+            <div className="div-container">
+                <FormControl 
+                    type="text"
+                    placeholder="Search..."
+                    value={this.props.filterText}
+                    onChange={this.handleFilterTextChange}
+                />
+            </div>
         );
     }
 }

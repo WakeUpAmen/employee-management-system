@@ -13,7 +13,7 @@ class EditEmployee extends Component{
     } 
     componentWillMount=()=>{
         this.props.getEmployeeByIdFromServer(this.props.match.params.employeeId);
-        // this.getOffsprings(this.props.match.params.employeeId);
+        // this.props.getOffsprings(this.props.match.params.employeeId);
         // this.props.getOffspringsByIdFromServer(this.props.match.params.employeeId);
     }
     getEmployeeInfo = () => {
@@ -137,7 +137,7 @@ class EditEmployee extends Component{
                     >
                     <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
                     {
-                        this.props.employees.map(employee=>{
+                        this.props.withoutoffsprings.map(employee=>{
                             return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
                         })
                     }

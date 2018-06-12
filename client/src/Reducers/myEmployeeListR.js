@@ -6,7 +6,7 @@ import {createStore, applyMiddleware} from 'redux';
 const initialState ={
     employees: [],
     children: [],
-    offsprings:[],
+    withoutoffsprings:[],
     manager:[],
     page: 1,
     hasError: false,
@@ -63,30 +63,32 @@ export const myEmployeeListR =(state = initialState, action)=>{
         case 'GET_MANAGER':
             return {...state, manager: action.data};
         case 'GET_OFFSPRINGS':
-                // console.log("hahahah")
-                // // console.log(state.employees.filter(em=> String(em._id) == String(action.id))[0].children)
-                // if(state.employees.filter(em=> String(em._id) == String(action.id))[0].children.length === 0){
-                //     return {...state, withoutoffsprings: state.employees.filter(x=>x._id != action.id)};
-                // }else{
-                //     let queue = [...state.employees.filter(em=> String(em._id) == String(action.id))[0].children];
-                //     console.log("queue:"+queue)
-                //     let res = [...queue];
-                //     while(queue.length > 0){
-                //         let tmpId = queue.shift();
-                //         res = [...res, ...state.employees.filter(em=>String(em._id) == String(action.id))[0].children];
-                //         queue = [...queue,...state.employees.filter(em=>String(em._id) == String(action.id))[0].children];
-                //     }
-                //     let tmp = [];
-                //     if(res.length > 0){
-                //         res.forEach(element => {
-                //             if(state.employees.map(item=>item._id).includes(element) == -1){
-                //                 tmp.push(element);
-                //             }
-                //         });
-                //     }
-                //     return {...state, withoutoffsprings: tmp};
-                // }
-                return state;
+                console.log("hahahah")
+                if(state.employees.filter(em=> String(em._id) == String(action.id))[0].children.length === 0){
+                    return {...state, withoutoffsprings: state.employees.filter(x=>String(x._id) != String(action.id))};
+                }else{
+                    // console.log("len != 0")
+                    // let queue = [...state.employees.filter(em=> String(em._id) == String(action.id))[0].children];
+                    // let res = [...queue];
+                    // while(queue.length > 0){
+                    //     let tmpId = queue.shift();
+                    //     res = [...res, ...state.employees.filter(em=>String(em._id) == String(action.id))[0].children];
+                    //     queue = [...queue,...state.employees.filter(em=>String(em._id) == String(action.id))[0].children];
+                    // }
+                    // let tmp = [];
+                    // console.log("res:")
+                    // console.log(res);
+                    // if(res.length > 0){
+                    //     res.forEach(element => {
+                    //         state.employees.map(item =>{
+                    //             if(String(item._id).includes(element) === -1){
+                    //                 tmp.push(item);
+                    //             }
+                    //         })
+                    //     })
+                    // }
+                    return {...state, withoutoffsprings: []};
+                }
                 
         default:
             return state;

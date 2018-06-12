@@ -29,7 +29,7 @@ class ChildrenList extends Component {
         }
         return (
             <div className="div-container">
-                <SearchBar/>
+                <SearchBar padding-left="10px"/>
                 <ChildrenTable
                     filterText={this.props.filterText}
                     deleteOneEmployee={this.deleteOneEmployee}
