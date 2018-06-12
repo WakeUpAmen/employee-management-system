@@ -4,6 +4,10 @@ import * as actions from '../../actions';
 import {connect} from 'react-redux';
 
 class EditEmployee extends Component{
+    constructor(props){
+        super(props);
+        this.state={file:"", imagePreviewUrl:""}
+    } 
     componentWillMount=()=>{
         this.props.getEmployeeByIdFromServer(this.props.match.params.employeeId);
     }
@@ -24,7 +28,13 @@ class EditEmployee extends Component{
         this.props.updateOneToServer(this.props.match.params.employeeId, employee);
     }
     pictureChange=(e)=>{
-        this.props.setPicture(e.target.value);
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+            this.props.setPicture(reader.result);
+        }
+        reader.readAsDataURL(file);
     }
     nameChange=(e)=>{
         this.props.setName(e.target.value);
@@ -57,10 +67,16 @@ class EditEmployee extends Component{
         this.props.setStartDate(e.target.value);
     }
     render (){
+        console.log("render")
+        console.log()
         return(
             <div className="div-container">
                 <label className="labels">Picture:</label>
-                <input className="input-textboxes" type="text" value = {this.props.picture} onChange={this.pictureChange}/><br/>
+                <input className="input-textboxes" type="file"  onChange={this.pictureChange}/>
+                <div>
+                    {<img src={this.props.picture} />}
+                    {/* {this.state.imagePreviewUrl !== ""? <img src={this.state.imagePreviewUrl}/>:<img src={this.props.picture} />} */}
+                </div>
                 <label className="labels">Name:</label>
                 <input className="input-textboxes" type="text" value = {this.props.name} onChange={this.nameChange}/><br/>
                 <label className="labels">Title:</label>

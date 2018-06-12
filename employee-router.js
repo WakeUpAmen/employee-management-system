@@ -88,7 +88,7 @@ routerEmployees.put('/employees/:_id', (req, res) => {
             let tmp_manager = ee.manager; // previous manager
             console.log("temp.manager:"+ tmp_manager);
             console.log("req.body.manager:"+ req.body.employee.manager)
-            if(tmp_manager !== req.body.employee.manager ){
+            if(tmp_manager != req.body.employee.manager ){
                 if(tmp_manager !== null && req.body.employee.manager=== null){
                     console.log("pre manager pop ")
                     Employee.findById(tmp_manager, (err, preManagerEmlopyee)=>{
@@ -183,7 +183,15 @@ routerEmployees.put('/employees/:_id', (req, res) => {
                     })
                 }
             }else{
-                res.status(200).json("put successed")
+                console.log("manager not change, change img")
+                console.log(req.body.employee)
+                Employee.findByIdAndUpdate(req.params._id, req.body.employee,(err, em)=>{
+                    if(err){
+                        res.status(500).json({error: err});
+                    }else{
+                        res.status(200).json("put successed")
+                    }
+                })
             }
         } 
     });
@@ -223,6 +231,7 @@ routerEmployees.delete('/employees/:id', (req, res) => {
         }
     })
 });
+
 
 module.exports = routerEmployees;
 

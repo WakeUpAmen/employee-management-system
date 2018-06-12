@@ -2,15 +2,29 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
+import {DropdownButton, MenuItem} from 'react-bootstrap';
 
 class NewEmployee extends Component{
     constructor(props){
         super(props);
-        this.state ={picture: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"", startDate:""};     
+        this.state ={file: "", imagePreviewUrl: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"manager name", startDate:""};     
     } 
+    pictureChange=(e)=>{
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+            this.setState({
+                file: file,
+                imagePreviewUrl: reader.result
+            });
+        }
+        reader.readAsDataURL(file);
+        // console.log(this.state.imagePreviewUrl)
+    }
     getEmployeeInfo = () => {
         let employee ={
-            picture:this.state.picture,
+            picture:this.state.imagePreviewUrl,
             name: this.state.name,
             title: this.state.title,
             sex: this.state.sex,
@@ -23,9 +37,6 @@ class NewEmployee extends Component{
             startDate: this.state.startDate
         }
         this.props.addOneToServer(employee);    
-    }
-    pictureChange=(e)=>{
-        this.setState({picture: e.target.value});
     }
     nameChange=(e)=>{
         this.setState({name: e.target.value});
@@ -52,17 +63,27 @@ class NewEmployee extends Component{
     childrenChange=(e)=>{
         this.setState({children: e.target.value});
     }
-    managerChange=(e)=>{
-        this.setState({manager: e.target.value});
+    managerChange=(eventKey, e)=>{
+        this.setState({manager: eventKey});
     }
     startDateChange=(e)=>{
         this.setState({startDate: e.target.value});
     }
     render (){
+        let imagePreview = null;
+        if (this.state.imagePreviewUrl) {
+            imagePreview = (<img src={this.state.imagePreviewUrl} />);
+        } else {
+            imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+        }
+        console.log(this.props.employees)
         return(
             <div className="div-container">
                 <label className="labels">Picture:</label>
-                <input className="input-textboxes" type="text" value = {this.state.picture} onChange={this.pictureChange}/><br/>
+                <input className="input-textboxes" type="file"  onChange={this.pictureChange}/>
+                <div>
+                    {imagePreview}
+                </div>
                 <label className="labels">Name:</label>
                 <input className="input-textboxes" type="text" value = {this.state.name} onChange={this.nameChange}/><br/>
                 <label className="labels">Title:</label>
@@ -80,7 +101,18 @@ class NewEmployee extends Component{
                 <label className="labels">Reportors:</label>
                 <input className="input-textboxes" type="text" value = {this.state.children} onChange={this.childrenChange}/><br/>
                 <label className="labels">Manager:</label>
-                <input className="input-textboxes" type="text" value = {this.state.manager} onChange={this.managerChange}/><br/>
+                <DropdownButton
+                    bsStyle="default"
+                    title={this.state.manager}
+                >
+                <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
+                {
+                    this.props.employees.map(employee=>{
+                        return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
+                    })
+                }
+                </DropdownButton><br/>
+                {/* <input className="input-textboxes" type="text" value = {this.state.manager} onChange={this.managerChange}/><br/> */}
                 <label className="labels">Start Date:</label>
                 <input className="input-textboxes" type="text" value = {this.state.startDate} onChange={this.startDateChange} /><br/>
                 <button className="buttons" onClick ={this.getEmployeeInfo} >Add Employee</button>  
@@ -94,6 +126,7 @@ const mapStateToProps = state => {
     return {
         hasError: state.myEmployeeListR.hasError,
         newEmployeeCompleted: state.myEmployeeListR.newEmployeeCompleted,
+        employees: state.myEmployeeListR.employees,
     }
 };
 

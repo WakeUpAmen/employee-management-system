@@ -5,6 +5,10 @@ import SearchBar from './SearchBar';
 import EmployeeTable from './EmployeeTable';
 import * as actions from '../../actions';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import ScrollArea from'react-scrollbar';
+// import ReactScrollbar from 'react-scrollbar-js';
+
+
 
 class Home extends Component {
     componentDidMount(){
@@ -44,30 +48,24 @@ class Home extends Component {
                     <button  className="buttons" ><Link to="/newemployee">Cerate new user</Link></button>
 
                 </div>
-                <EmployeeTable
-                    filterText={this.props.filterText}
-                    deleteOneEmployee={this.deleteOneEmployee}
-                    itemNum = {10}
-                    // page = {this.props.page}
-                    pictureSort = {this.pictureSort}
-                    nameSort ={this.nameSort}
-                    titleSort={this.titleSort}
-                    sexSort={this.sexSort}
-                    officePhoneSort={this.officePhoneSort}
-                    cellPhoneSort={this.cellPhoneSort}
-                    SMSSort={this.SMSSort}
-                    emailSort={this.emailSort}
-                    childrenSort={this.childrenSort}
-                    managerSort={this.managerSort}
-                    startDateSort={this.startDateSort}
-                />
-                {/* <Pages 
-                    minusOnepage = {this.props.minusOnepage} 
-                    addOnePage = {this.props.addOnePage} 
-                    page = {this.props.page} 
-                    // pages={this.props.filteredEmployees.length/5 == Math.floor(this.props.filteredEmployees.length/5)? this.props.filteredEmployees.length/5 : Math.floor(this.props.filteredEmployees.length/5)+ 1}
-                    // getPageEmployees={this.getPageEmployees}
-                /> */}
+                <ScrollArea speed={0.8} className="area"   horizontal={true} vertical ={true}>
+                    <EmployeeTable 
+                        filterText={this.props.filterText}
+                        deleteOneEmployee={this.deleteOneEmployee}
+                        itemNum = {10}
+                        pictureSort = {this.pictureSort}
+                        nameSort ={this.nameSort}
+                        titleSort={this.titleSort}
+                        sexSort={this.sexSort}
+                        officePhoneSort={this.officePhoneSort}
+                        cellPhoneSort={this.cellPhoneSort}
+                        SMSSort={this.SMSSort}
+                        emailSort={this.emailSort}
+                        childrenSort={this.childrenSort}
+                        managerSort={this.managerSort}
+                        startDateSort={this.startDateSort}
+                    />
+                </ScrollArea>
             </div>
         );
     }
@@ -77,10 +75,7 @@ const mapStateToProps = state => {
     console.log("home map, state.employees")
     console.log(state.employees)
     return {
-        // filteredEmployees: state.myEmployeeListR.filteredEmployees,
-        // pageEmployees: state.myEmployeeListR.pageEmployees,
         filterText: state.myEmployeeListR.filterText,
-        // page: state.myEmployeeListR.page,
         hasErrored: state.myEmployeeListR.hasError,
         dataLoading: state.myEmployeeListR.dataLoading,
         employees: state.myEmployeeListR.employees,
