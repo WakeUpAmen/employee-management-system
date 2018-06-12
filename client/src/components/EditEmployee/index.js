@@ -2,14 +2,19 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
+import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
+
+
 
 class EditEmployee extends Component{
     constructor(props){
         super(props);
-        this.state={file:"", imagePreviewUrl:""}
+        this.state={file:"", imagePreviewUrl:"", offsprings:[]}
     } 
     componentWillMount=()=>{
         this.props.getEmployeeByIdFromServer(this.props.match.params.employeeId);
+        // this.getOffsprings(this.props.match.params.employeeId);
+        // this.props.getOffspringsByIdFromServer(this.props.match.params.employeeId);
     }
     getEmployeeInfo = () => {
         let employee ={
@@ -66,16 +71,28 @@ class EditEmployee extends Component{
     startDateChange=(e)=>{
         this.props.setStartDate(e.target.value);
     }
+    // getOffsprings=(id)=>{
+    //     let aa = this.props.employees.filter(em=> String(em._id) == String(id))
+    //     console.log(aa[0])
+    //     let queue = [...this.props.employees.filter(em=> String(em._id) == String(id))[0].children];
+    //     console.log("queue:"+queue)
+    //     let res = [...this.props.employees.filter(em=>String(em._id) == String(id))[0].children];
+    //     while(queue.length > 0){
+    //         let tmpId = queue.shift();
+    //         res = [...res, this.props.employees.filter(em=>String(em._id) == String(id))[0].children];
+    //         queue = [...queue,this.props.employees.filter(em=>String(em._id) == String(id))[0].children];
+    //     }
+    //     return res;
+    // }
     render (){
-        console.log("render")
-        console.log()
+        // console.log("render")
+        // let offsprings = this.getOffsprings(this.props.match.params.employeeId)
         return(
             <div className="div-container">
                 <label className="labels">Picture:</label>
                 <input className="input-textboxes" type="file"  onChange={this.pictureChange}/>
                 <div>
                     {<img src={this.props.picture} />}
-                    {/* {this.state.imagePreviewUrl !== ""? <img src={this.state.imagePreviewUrl}/>:<img src={this.props.picture} />} */}
                 </div>
                 <label className="labels">Name:</label>
                 <input className="input-textboxes" type="text" value = {this.props.name} onChange={this.nameChange}/><br/>
@@ -94,7 +111,18 @@ class EditEmployee extends Component{
                 <label className="labels">Reporters:</label>
                 <input className="input-textboxes" type="text" value = {this.props.children} onChange={this.childrenChange}/><br/>
                 <label className="labels">Manager:</label>
-                <input className="input-textboxes" type="text" value = {this.props.manager} onChange={this.managerChange}/><br/>
+                <DropdownButton
+                    bsStyle="default"
+                    title={this.props.manager}
+                >
+                <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
+                {
+                    this.props.employees.map(employee=>{
+                        return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
+                    })
+                }
+                </DropdownButton><br/>
+                {/* <input className="input-textboxes" type="text" value = {this.props.manager} onChange={this.managerChange}/><br/> */}
                 <label className="labels">Start Date:</label>
                 <input className="input-textboxes" type="text" value = {this.props.startDate} onChange={this.startDateChange}/><br/>
                 <button className="buttons" onClick ={this.getEmployeeInfo} >Save User</button>  
@@ -105,7 +133,10 @@ class EditEmployee extends Component{
 }
 
 const mapStateToProps = state => {
+    console.log("wothout:"+state.myEmployeeListR.withoutoffsprings)
     return {
+        employees: state.myEmployeeListR.employees,
+        withoutoffsprings: state.myEmployeeListR.withoutoffsprings,
         picture: state.editEmployeeR.picture,
         name: state.editEmployeeR.name,
         title: state.editEmployeeR.title,
@@ -125,6 +156,7 @@ function mapDispatchToProps(dispatch) {
     return({
         updateOneToServer:(id, employee) => {dispatch(actions.updateOneToServer(id, employee))},
         getEmployeeByIdFromServer:(id) => {dispatch(actions.getEmployeeByIdFromServer(id))},
+        // getOffspringsByIdFromServer:(id) => {dispatch(actions.getOffspringsByIdFromServer(id))},
         setPicture:(text)=>{dispatch(actions.setPicture(text))},
         setName:(text) => {dispatch(actions.setName(text))},
         setTitle:(text) => {dispatch(actions.setTitle(text))},

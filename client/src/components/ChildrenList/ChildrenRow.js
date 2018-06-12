@@ -1,23 +1,18 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import * as actions from '../../actions';
 import {Button} from 'react-bootstrap';
-
-
-class EmployeeRow extends Component {
-
+class ChildrenRow extends Component {
     render() {
         return (
             <tr>
-                <td><Button className="buttons"><Link to={{ pathname: `/editemployee/${this.props._id}` }}>Edit</Link></Button></td>
-                <td><Button className="buttons"  onClick ={()=>this.props.deleteRow(this.props._id)} >Delete</Button></td>
+                <td><Button><Link to={{ pathname: `/editemployee/${this.props._id}` }}>Edit</Link></Button></td>
+                <td><Button onClick ={()=>this.props.deleteRow(this.props._id)} >Delete</Button></td>
                 <td><img src={this.props.picture}/></td>
                 <td>{this.props.name}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.sex}</td>
                 <td> <a href={`tel:${this.props.officePhone}`}>{this.props.officePhone}</a></td>
-                <td>{this.props.cellPhone}</td>
+                <td> <a href={`tel:${this.props.cellPhone}`}>{this.props.cellPhone}</a></td>
                 <td>{this.props.SMS}</td>
                 <td><a href={`mailto:${this.props.email}`}>{this.props.email}</a></td>
                 {
@@ -34,8 +29,4 @@ class EmployeeRow extends Component {
     }
 }
 
-
-
-// export default connect(mapStateToProps, mapDispatchToProps)(EmployeeRow);
-
-export default EmployeeRow;
+export default ChildrenRow;

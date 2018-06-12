@@ -6,9 +6,8 @@ import {createStore, applyMiddleware} from 'redux';
 const initialState ={
     employees: [],
     children: [],
+    offsprings:[],
     manager:[],
-    filteredEmployees: [],
-    pageEmployees: [],
     page: 1,
     hasError: false,
     dataLoading: false,
@@ -22,7 +21,7 @@ const initialState ={
 export const myEmployeeListR =(state = initialState, action)=>{
     switch(action.type){      
         case 'GET_ALL':
-            return {...state, employees: action.data, filteredEmployees: action.data, pageEmployees: action.data.slice(0, 5)};
+            return {...state, employees: action.data};
         case 'DATA_LOADING':
             return {...state, dataLoading: action.val}
         case 'GETDATA_ERROR':
@@ -35,11 +34,12 @@ export const myEmployeeListR =(state = initialState, action)=>{
             return {...state, deleteEmployeeCompleted: !state.deleteEmployeeCompleted}
         case 'SET_SORT':
             let arr5 = [];
-            state.filteredEmployees.forEach(element => {
+            state.employees.forEach(element => {
                 arr5.push(element);
             });
-            if(action.str === "age"){
-                arr5.sort((a, b)=> a[action.str]-b[action.str])
+            // console.log("sort str:"+action.str)
+            if(action.str === "children"){
+                arr5.sort((a, b)=> a[action.str].length-b[action.str].length)
             }else{
                 arr5.sort(function(a, b) {
                     var nameA = a[action.str].toUpperCase(); // ignore upper and lowercase
@@ -53,28 +53,41 @@ export const myEmployeeListR =(state = initialState, action)=>{
                     return 0;
                 });
             }
-            return {...state, filteredEmployees: arr5};
-        // case 'SET_PAGE':
-        //     return {...state, page: action.page};
+            return {...state, employees: arr5};
             
-        case 'PAGE_INCREMENT':
-            if(state.page >= state.filteredEmployees.length / 5){
-                return state;
-            }
-            return {...state, page: state.page + 1, pageEmployees: state.filteredEmployees.slice((state.page) * 5, (state.page) * 5+5)};
-        case 'PAGE_DECREMENT':
-            if(state.page === 1){
-                return state;
-            }
-            return {...state, page: state.page - 1, pageEmployees: state.filteredEmployees.slice((state.page - 2) * 5, (state.page - 2) * 5+5)};
         case 'SET_FILTERTEXT':
-            return {...state, filterText: action.text, filteredEmployees: state.employees.filter(employee=>employee.name.indexOf(action.text) !== -1), pageEmployees: state.filteredEmployees.slice((state.page -1) * 5, (state.page-1) * 5+5)};
-        // case 'GET_PAGEEMPLOYEES':
-        //     return {...state, page:action.page, pageEmployees: state.filteredEmployees.slice((action.page -1) * 5, (action.page-1) * 5+5)}
+            return {...state, filterText: action.text};
+
         case 'GET_CHILDREN':
             return {...state, children: action.data};
         case 'GET_MANAGER':
             return {...state, manager: action.data};
+        case 'GET_OFFSPRINGS':
+                // console.log("hahahah")
+                // // console.log(state.employees.filter(em=> String(em._id) == String(action.id))[0].children)
+                // if(state.employees.filter(em=> String(em._id) == String(action.id))[0].children.length === 0){
+                //     return {...state, withoutoffsprings: state.employees.filter(x=>x._id != action.id)};
+                // }else{
+                //     let queue = [...state.employees.filter(em=> String(em._id) == String(action.id))[0].children];
+                //     console.log("queue:"+queue)
+                //     let res = [...queue];
+                //     while(queue.length > 0){
+                //         let tmpId = queue.shift();
+                //         res = [...res, ...state.employees.filter(em=>String(em._id) == String(action.id))[0].children];
+                //         queue = [...queue,...state.employees.filter(em=>String(em._id) == String(action.id))[0].children];
+                //     }
+                //     let tmp = [];
+                //     if(res.length > 0){
+                //         res.forEach(element => {
+                //             if(state.employees.map(item=>item._id).includes(element) == -1){
+                //                 tmp.push(element);
+                //             }
+                //         });
+                //     }
+                //     return {...state, withoutoffsprings: tmp};
+                // }
+                return state;
+                
         default:
             return state;
     }

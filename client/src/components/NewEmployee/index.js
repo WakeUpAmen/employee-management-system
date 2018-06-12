@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
-import {DropdownButton, MenuItem} from 'react-bootstrap';
+import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuItem} from 'react-bootstrap';
+
 
 class NewEmployee extends Component{
     constructor(props){

@@ -2,8 +2,10 @@
 // 1. create state, action, reducer
 import thunk from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
+import myEmployeeListR from "./myEmployeeListR";
 
 const initialState ={
+    offsprings:[],
     _id: "",picture: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"", startDate:""
   };
 //reducer
@@ -46,6 +48,17 @@ export const editEmployeeR =(state = initialState, action)=>{
                 manager: action.employee.manager,
                 startDate: action.employee.startDate
             }
+        // case 'GET_OFFSPRINGS':
+        // // console.log("edit:lili:"+myEmployeeListR.employees)
+        //     let queue = [...myEmployeeListR.initialState.employees.filter(em=> String(em._id) == String(state._id))[0].children];
+        //     console.log("queue:"+queue)
+        //     let res = [...myEmployeeListR.initialState.employees.filter(em=>String(em._id) == String(state._id))[0].children];
+        //     while(queue.length > 0){
+        //         let tmpId = queue.shift();
+        //         res = [...res, ...myEmployeeListR.initialState.employees.filter(em=>String(em._id) == String(state._id))[0].children];
+        //         queue = [...queue,...myEmployeeListR.initialState.employees.filter(em=>String(em._id) == String(state._id))[0].children];
+        //     }
+        //     return {...state, offsprings: res};
         default:
             return state;
     }

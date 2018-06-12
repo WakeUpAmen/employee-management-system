@@ -3,6 +3,7 @@ import axios from 'axios';
 export function getAllEmployeesFromServer() {
     return (dispatch) => {
         dispatch(dataLoading(true));
+        console.log("actions")
         axios.get("http://localhost:8888/api/employees/")
         .then(response => {
             console.log("get all employees:")
@@ -24,9 +25,11 @@ export function getEmployeeByIdFromServer(id) {
             id: id
         })
         .then((response) => {
+            console.log("action get offsprings")
             dispatch(getEmployeeById(response.data.employee));
             dispatch(getChildren(response.data.children));
-            dispatch(getmanager(response.data.manager))
+            dispatch(getmanager(response.data.manager));
+            dispatch(getOffspringsById(id));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -92,19 +95,33 @@ export function deleteOneFromServer(id) {
         });
     }
 }
+export function getOffspringsByIdFromServer(id){
+    return (dispatch) => {
+        dispatch(dataLoading(true));
+        axios.get("http://localhost:8888/api/employees/offsprings/"+id, {
+            id: id
+        })
+        .then((response) => {
+            dispatch(getOffspringsById(id));
+            dispatch(dataLoading(false));
+        })
+        .catch(err => {
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
+        });
+    }
+}
 // actions
 export const setSort ={
     type: 'SET_SORT',  
     str:""
 };
+
 export const setFilterText =text=>({
     type: 'SET_FILTERTEXT', 
     text
 });
-// export const setPage=page=>({
-//     type: 'SET_PAGE', 
-//     page
-// });
+
 export const getEmployeeById = employee =>({
     type: 'GET_EMPLOYEE_BYID',
     employee
@@ -154,13 +171,6 @@ export const setStartDate= (text) =>({
     text
 })
 
-export const pageIncrement={
-    type: 'PAGE_INCREMENT'
-};
-export const pageDecrement={
-    type: 'PAGE_DECREMENT'
-};
-
 export const getAll = data => ({
     type: 'GET_ALL', 
     data
@@ -206,4 +216,9 @@ export const getChildren=(data)=>({
 export const getmanager =(data)=>({
     type: 'GET_MANAGER',
     data
+})
+
+export const getOffspringsById=(id)=>({
+    type: 'GET_OFFSPRINGS',
+    id
 })

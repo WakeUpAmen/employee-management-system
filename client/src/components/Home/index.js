@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Pages from './Pages';
 import SearchBar from './SearchBar';
 import EmployeeTable from './EmployeeTable';
 import * as actions from '../../actions';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import ScrollArea from'react-scrollbar';
-// import ReactScrollbar from 'react-scrollbar-js';
+import{Button} from 'react-bootstrap';
 
 
 
@@ -45,7 +44,7 @@ class Home extends Component {
                     <SearchBar  filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
                 </div>
                 <div style={{width: "40%", float: "right"}}>
-                    <button  className="buttons" ><Link to="/newemployee">Cerate new user</Link></button>
+                    <Button  className="buttons" ><Link to="/newemployee">Cerate new user</Link></Button>
 
                 </div>
                 <ScrollArea speed={0.8} className="area"   horizontal={true} vertical ={true}>
@@ -53,17 +52,16 @@ class Home extends Component {
                         filterText={this.props.filterText}
                         deleteOneEmployee={this.deleteOneEmployee}
                         itemNum = {10}
-                        pictureSort = {this.pictureSort}
-                        nameSort ={this.nameSort}
-                        titleSort={this.titleSort}
-                        sexSort={this.sexSort}
-                        officePhoneSort={this.officePhoneSort}
-                        cellPhoneSort={this.cellPhoneSort}
-                        SMSSort={this.SMSSort}
-                        emailSort={this.emailSort}
-                        childrenSort={this.childrenSort}
-                        managerSort={this.managerSort}
-                        startDateSort={this.startDateSort}
+                        nameSort ={this.setSort}
+                        titleSort={this.setSort}
+                        sexSort={this.setSort}
+                        officePhoneSort={this.setSort}
+                        cellPhoneSort={this.setSort}
+                        SMSSort={this.setSort}
+                        emailSort={this.setSort}
+                        childrenSort={this.setSort}
+                        managerSort={this.setSort}
+                        startDateSort={this.setSort}
                     />
                 </ScrollArea>
             </div>
@@ -85,8 +83,6 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
     return({
         setFilterText:(text) =>{dispatch(actions.setFilterText(text))},
-        addOnePage: () =>{dispatch(actions.pageIncrement)},
-        minusOnepage:() =>{dispatch(actions.pageDecrement)},
         setSort:(str) =>{actions.setSort.str=str, dispatch(actions.setSort)},
         getAllEmployeesFromServer: () =>{dispatch(actions.getAllEmployeesFromServer())},
         deleteOneEmployee:(id) =>{dispatch(actions.deleteOneFromServer(id))},

@@ -232,7 +232,25 @@ routerEmployees.delete('/employees/:id', (req, res) => {
     })
 });
 
-
+routerEmployees.get('/employees/offsprings/:id', (req, res) => {
+    Employee.findById(req.params.id, (err, employee) => {
+        if (err) {
+            res.status(500).json({ error: err });
+        } else {
+            // console.log(employee._id)
+            let childrenID = employee.children;
+            Employee.find((err, employees)=>{
+                if(err){
+                    res.status(500).json({rror: err});
+                }else{
+                   res.status(200).json({
+                        offsprings: employees,
+                   })
+                }
+            })
+        }
+    });
+});
 module.exports = routerEmployees;
 
 
