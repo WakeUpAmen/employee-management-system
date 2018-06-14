@@ -6,7 +6,6 @@ export function getAllEmployeesFromServer() {
         console.log("actions")
         axios.get("http://localhost:8888/api/employees/")
         .then(response => {
-            console.log("get all employees:")
             console.log(response.data)
             dispatch(getAll(response.data));
             dispatch(dataLoading(false));
@@ -25,11 +24,10 @@ export function getEmployeeByIdFromServer(id) {
             id: id
         })
         .then((response) => {
-            console.log("action get offsprings")
             dispatch(getEmployeeById(response.data.employee));
             dispatch(getChildren(response.data.children));
             dispatch(getmanager(response.data.manager));
-            dispatch(getOffspringsById(id));
+            dispatch(getOffspringsById(response.data.employee));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -222,7 +220,7 @@ export const getmanager =(data)=>({
     data
 })
 
-export const getOffspringsById=(id)=>({
+export const getOffspringsById=(employee)=>({
     type: 'GET_OFFSPRINGS',
-    id
+    employee
 })

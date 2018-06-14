@@ -52,7 +52,7 @@ class EmployeeTable extends Component {
                         <th onClick ={() =>this.props.sexSort("sex")} >Sex</th>
                         <th onClick ={() => this.props.officePhoneSort("officePhone")} >Office Phone</th>
                         <th onClick ={() => this.props.cellPhoneSort("cellPhone")} >Cell Phone</th>
-                        <th onClick ={() => this.props.SMSSort("SMSPhone")} >SMS</th>
+                        <th onClick ={() => this.props.SMSSort("SMS")} >SMS</th>
                         <th onClick ={() => this.props.emailSort("email")} >Email</th>
                         <th onClick ={() => this.props.childrenSort("children")} >Reportor</th>
                         <th onClick ={() => this.props.managerSort("manager")} >Manager</th>

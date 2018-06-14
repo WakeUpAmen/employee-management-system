@@ -67,6 +67,8 @@ class NewEmployee extends Component{
     }
     managerChange=(eventKey, e)=>{
         this.setState({manager: eventKey});
+        this.props.setManagerName(e.target.innerHTML);
+
     }
     startDateChange=(e)=>{
         this.setState({startDate: e.target.value});
@@ -155,6 +157,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
     return({
         addOneToServer:(data) =>{ dispatch(actions.addOneToServer(data))},
+        setManagerName:(name) =>{dispatch(actions.setManagerName(name))},
       })
 };
 

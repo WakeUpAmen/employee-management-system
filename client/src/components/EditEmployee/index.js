@@ -73,21 +73,9 @@ class EditEmployee extends Component{
     startDateChange=(e)=>{
         this.props.setStartDate(e.target.value);
     }
-    // getOffsprings=(id)=>{
-    //     let aa = this.props.employees.filter(em=> String(em._id) == String(id))
-    //     console.log(aa[0])
-    //     let queue = [...this.props.employees.filter(em=> String(em._id) == String(id))[0].children];
-    //     console.log("queue:"+queue)
-    //     let res = [...this.props.employees.filter(em=>String(em._id) == String(id))[0].children];
-    //     while(queue.length > 0){
-    //         let tmpId = queue.shift();
-    //         res = [...res, this.props.employees.filter(em=>String(em._id) == String(id))[0].children];
-    //         queue = [...queue,this.props.employees.filter(em=>String(em._id) == String(id))[0].children];
-    //     }
-    //     return res;
-    // }
     render (){
-        // console.log("render")
+        // console.log("here")
+        // console.log(this.props.offsprings)
         return(
             <Form horizontal className="forms">
                 <Button className="buttons" style={{width: "20%", float: "right"}} ><Link to={{ pathname: '/'  }}>Home</Link></Button>
@@ -110,11 +98,11 @@ class EditEmployee extends Component{
                     <FormControl className="input-textboxes" type="text" value = {this.props.sex} onChange={this.sexChange} />
                 </FormGroup>
                 <FormGroup>
-                    <ControlLabel className="labels">Office Phone:</ControlLabel>
+                    <ControlLabel className="labels">OfficePhone:</ControlLabel>
                     <FormControl className="input-textboxes" type="text" value = {this.props.officePhone} onChange={this.officePhoneChange}/>
                 </FormGroup>
                 <FormGroup>
-                    <ControlLabel className="labels">Cell Phone:</ControlLabel>
+                    <ControlLabel className="labels">CellPhone:</ControlLabel>
                     <FormControl className="input-textboxes" type="text" value = {this.props.cellPhone} onChange={this.cellPhoneChange}/>
                 </FormGroup>
                 <FormGroup>
@@ -125,21 +113,19 @@ class EditEmployee extends Component{
                     <ControlLabel className="labels">Email:</ControlLabel>
                     <FormControl className="input-textboxes" type="text" value = {this.props.email} onChange={this.emailChange}/>
                 </FormGroup>
-                {/* <FormGroup>
-                    <ControlLabel className="labels">Reporters:</ControlLabel>
-                    <FormControl className="input-textboxes" type="text" value = {this.props.children} onChange={this.childrenChange}/>
-                </FormGroup> */}
                 <FormGroup>
                     <ControlLabel className="labels">Manager:</ControlLabel><br/>
-                    <DropdownButton
+                    <DropdownButton className="input-textboxes"
                         bsStyle="default"
                         title={this.props.managerName}
                     >
                     <MenuItem eventKey={null} onSelect={this.managerChange} >----</MenuItem>
                     {
-                        this.props.withoutoffsprings.map(employee=>{
-                            return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
-                        })
+                        this.props.employees.map(employee=>{
+                            if(!this.props.offsprings.includes(String(employee._id)))
+                                return <MenuItem eventKey={employee._id} onSelect={this.managerChange} >{employee.name}</MenuItem>
+                            }
+                        )
                     }
                     </DropdownButton>
                 </FormGroup>
@@ -155,10 +141,10 @@ class EditEmployee extends Component{
 }
 
 const mapStateToProps = state => {
-    console.log("wothout:"+state.myEmployeeListR.managerName)
+    // console.log("offspring:"+state.myEmployeeListR.name)
     return {
         employees: state.myEmployeeListR.employees,
-        withoutoffsprings: state.myEmployeeListR.withoutoffsprings,
+        offsprings: state.myEmployeeListR.offsprings,
         picture: state.editEmployeeR.picture,
         name: state.editEmployeeR.name,
         title: state.editEmployeeR.title,

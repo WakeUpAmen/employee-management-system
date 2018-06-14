@@ -14,6 +14,12 @@ class ChildrenTable extends Component {
     }
 
     render() {
+        if (this.props.hasErrored) {
+            return <p>Sorry! There was an error loading the items</p>;
+        }
+        if (this.props.dataLoading) {
+            return <p>Loading…</p>;
+        }
         const rows = [];
         this.props.employees.forEach((employee) => {
                 rows.push( <ChildrenRow 
@@ -69,6 +75,8 @@ const mapStateToProps = state => {
     console.log(state.myEmployeeListR.children)
     return {
         employees: state.myEmployeeListR.children,
+        hasErrored: state.myEmployeeListR.hasErrored,
+        dataLoading: state.myEmployeeListR.dataLoading,
     }
 };
 

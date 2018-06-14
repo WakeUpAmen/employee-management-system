@@ -7,10 +7,27 @@ import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 class ChildrenList extends Component {
+    constructor(props){
+        super(props);
+        this.state={change: false};
+    }
     componentDidMount(){
         this.props.getEmployeeByIdFromServer(this.props.match.params.employeeId);
         this.props.editEmployeeCompleted(false);
     }
+    //didupdate()
+    componentDidUpdate(){
+        
+    }
+    componentWillReceiveProps (nextProps) {
+        // console.log(nextProps.id +"---"+ this.props.id)
+        // if(nextProps.id !== this.props.id) {
+        //     this.setState({change: !this.state.change})
+        // }
+        // console.log(this.state.change)
+        // this.setState({change: !this.state.change})
+     }
+
     deleteOneEmployee = (index)=>{
         this.props.deleteOneEmployee(index);
     }
