@@ -237,7 +237,6 @@ routerEmployees.get('/employees/offsprings/:id', (req, res) => {
         if (err) {
             res.status(500).json({ error: err });
         } else {
-            // console.log(employee._id)
             let childrenID = employee.children;
             Employee.find((err, employees)=>{
                 if(err){
