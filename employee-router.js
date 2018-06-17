@@ -232,7 +232,13 @@ routerEmployees.delete('/employees/:id', (req, res) => {
                                         if(err){
                                             res.status(500).json({error:err});
                                         }else{
-                                            res.status(200).json("deleted successed")
+                                            Employee.find((err, employees) => {
+                                                if (err) {
+                                                    res.status(500).json({ error: err });
+                                                } else {
+                                                    res.status(200).json(employees);
+                                                }
+                                            });
                                         }
                                     })
                                 }

@@ -1,12 +1,11 @@
 import axios from 'axios';
 //async functions
+
 export function getAllEmployeesFromServer() {
     return (dispatch) => {
         dispatch(dataLoading(true));
-        console.log("actions")
         axios.get("http://localhost:8888/api/employees/")
         .then(response => {
-            console.log(response.data)
             dispatch(getAll(response.data));
             dispatch(setPageEmployees(response.data));
             dispatch(dataLoading(false));
@@ -25,8 +24,6 @@ export function getChildrenFromServer(id){
             id: id
         })
         .then((response) =>{
-            console.log("children:")
-            console.log(response.data.employees)
             dispatch(setPageEmployees(response.data.employees));
             dispatch(dataLoading(false));
 
@@ -45,8 +42,6 @@ export function getManagerFromServer(id){
             id: id
         })
         .then((response) =>{
-            console.log("manager:")
-            console.log(response.data.employee)
             dispatch(setPageEmployees([response.data.employee]));
             dispatch(dataLoading(false));
 
@@ -65,9 +60,6 @@ export function getEmployeeByIdFromServer(id) {
         })
         .then((response) => {
             dispatch(getEmployeeById(response.data.employee));
-            // dispatch(getChildren(response.data.children));
-            // dispatch(getmanager(response.data.manager));
-            // dispatch(getOffspringsById(response.data.employee));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -84,12 +76,10 @@ export function addOneToServer(emlpoyeeDate) {
             employee: emlpoyeeDate
         })
         .then((response) => {
-            console.log(" add ok")
             dispatch(newEmployeeCompleted(true));
             dispatch(dataLoading(false));
         })
         .catch(err => {
-            console.log("add bad")
             dispatch(getDataError(true));
             dispatch(dataLoading(false));
         });
@@ -103,7 +93,6 @@ export function updateOneToServer(id, emlpoyeeDate) {
             employee: emlpoyeeDate
         })
         .then((response) => {
-            console.log(response.data);
             dispatch(editEmployeeCompleted(true));
             dispatch(dataLoading(false));
         })
@@ -122,9 +111,7 @@ export function deleteOneFromServer(id) {
             id:id,
         })
         .then((response) => {
-            console.log("delete okokok")
-            console.log(response.data);
-            // dispatch(deleteEmployeeCompleted());
+            dispatch(setPageEmployees(response.data));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -133,27 +120,32 @@ export function deleteOneFromServer(id) {
         });
     }
 }
-export function getOffspringsByIdFromServer(id){
-    return (dispatch) => {
-        dispatch(dataLoading(true));
-        axios.get("http://localhost:8888/api/employees/offsprings/"+id, {
-            id: id
-        })
-        .then((response) => {
-            dispatch(getOffspringsById(id));
-            dispatch(dataLoading(false));
-        })
-        .catch(err => {
-            dispatch(getDataError(true));
-            dispatch(dataLoading(false));
-        });
-    }
-}
+// export function getOffspringsByIdFromServer(id){
+//     return (dispatch) => {
+//         dispatch(dataLoading(true));
+//         axios.get("http://localhost:8888/api/employees/offsprings/"+id, {
+//             id: id
+//         })
+//         .then((response) => {
+//             dispatch(getOffspringsById(id));
+//             dispatch(dataLoading(false));
+//         })
+//         .catch(err => {
+//             dispatch(getDataError(true));
+//             dispatch(dataLoading(false));
+//         });
+//     }
+// }
 // actions
-export const setSort ={
+export const getAll = data => ({
+    type: 'GET_ALL', 
+    data
+});
+
+export const setSort =str=>({
     type: 'SET_SORT',  
-    str:""
-};
+    str
+});
 
 export const setFilterText =text=>({
     type: 'SET_FILTERTEXT', 
@@ -213,11 +205,6 @@ export const setStartDate= (text) =>({
     text
 })
 
-export const getAll = data => ({
-    type: 'GET_ALL', 
-    data
-});
-
 export const getDataError = val=>({
     type: 'GETDATA_ERROR',
     val
@@ -250,20 +237,11 @@ export const getPageEmployees=(page)=>({
     type: 'GET_EMPLOYEES',
     page
 })
-// export const getChildren=(data)=>({
-//     type: 'GET_CHILDREN',
-//     data
-// })
 
-// export const getmanager =(data)=>({
-//     type: 'GET_MANAGER',
-//     data
+// export const getOffspringsById=(employee)=>({
+//     type: 'GET_OFFSPRINGS',
+//     employee
 // })
-
-export const getOffspringsById=(employee)=>({
-    type: 'GET_OFFSPRINGS',
-    employee
-})
 export const setPageEmployees = (data)=>({
     type: 'SET_PAGEEMPLOYEES',
     data

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import EmployeeRow from './EmployeeRow';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
+import {Table} from 'react-bootstrap';
 
 
 class EmployeeTable extends Component {
@@ -48,26 +49,26 @@ class EmployeeTable extends Component {
 
         return (
             <div className="div-container">
-            <table className="table-table">
-                <thead>
-                    <tr>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <th /*onClick ={() => this.props.pictureSort("officePhone")}*/ >Picture</th>
-                        <th onClick ={() =>this.props.nameSort("name")} >Name</th>
-                        <th onClick ={()=>this.props.titleSort("title")} >Title</th>
-                        <th onClick ={() =>this.props.sexSort("sex")} >Sex</th>
-                        <th onClick ={() => this.props.officePhoneSort("officePhone")} >Office Phone</th>
-                        <th onClick ={() => this.props.cellPhoneSort("cellPhone")} >Cell Phone</th>
-                        <th onClick ={() => this.props.SMSSort("SMS")} >SMS</th>
-                        <th onClick ={() => this.props.emailSort("email")} >Email</th>
-                        <th onClick ={() => this.props.childrenSort("children")} >Reportor</th>
-                        <th onClick ={() => this.props.managerSort("manager")} >Manager</th>
-                        <th onClick ={() => this.props.startDateSort("startDate")} >startDate</th>
-                    </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
+                <Table striped bordered condensed hover className="table-table">
+                    <thead>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th /*onClick ={() => this.props.pictureSort("officePhone")}*/ >Picture</th>
+                            <th onClick ={() =>this.props.nameSort("name")} >Name</th>
+                            <th onClick ={()=>this.props.titleSort("title")} >Title</th>
+                            <th onClick ={() =>this.props.sexSort("sex")} >Sex</th>
+                            <th onClick ={() => this.props.officePhoneSort("officePhone")} >Office Phone</th>
+                            <th onClick ={() => this.props.cellPhoneSort("cellPhone")} >Cell Phone</th>
+                            <th onClick ={() => this.props.SMSSort("SMS")} >SMS</th>
+                            <th onClick ={() => this.props.emailSort("email")} >Email</th>
+                            <th onClick ={() => this.props.childrenSort("children")} >Reportor</th>
+                            <th onClick ={() => this.props.managerSort("manager")} >Manager</th>
+                            <th onClick ={() => this.props.startDateSort("startDate")} >startDate</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </Table>
             </div>
         );
     }

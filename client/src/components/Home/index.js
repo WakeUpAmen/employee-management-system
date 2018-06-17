@@ -20,20 +20,20 @@ class Home extends Component {
         this.props.editEmployeeCompleted(false);
         this.props.newEmployeeCompleted(false);
     }
-    componentDidUpdate(){
-        console.log("did update:"+this.state.didUpdate)
-        if(this.state.didUpdate === true){
-            this.props.getAllEmployeesFromServer();
-            this.setState({didUpdate: false})
-        }
-    }
+    // componentDidUpdate(){
+    //     console.log("did update:"+this.state.didUpdate)
+    //     if(this.state.didUpdate === true){
+    //         this.props.getAllEmployeesFromServer();
+    //         this.setState({didUpdate: false})
+    //     }
+    // }
     handleFilterTextChange = (filterText) => {
         this.props.setFilterText(filterText);
     }
 
     deleteOneEmployee = (index)=>{
         this.props.deleteOneEmployee(index);
-        this.setState({didUpdate: true});
+        // this.setState({didUpdate: true});
     }
     setSort =(str)=>{
         this.props.setSort(str);
@@ -82,14 +82,13 @@ const mapStateToProps = state => {
         filterText: state.myEmployeeListR.filterText,
         hasErrored: state.myEmployeeListR.hasError,
         dataLoading: state.myEmployeeListR.dataLoading,
-        employees: state.myEmployeeListR.employees,
     }
 };
 
 function mapDispatchToProps(dispatch) {
     return({
         setFilterText:(text) =>{dispatch(actions.setFilterText(text))},
-        setSort:(str) =>{actions.setSort.str=str, dispatch(actions.setSort)},
+        setSort:(str) =>{dispatch(actions.setSort(str))},
         getAllEmployeesFromServer: () =>{dispatch(actions.getAllEmployeesFromServer())},
         deleteOneEmployee:(id) =>{dispatch(actions.deleteOneFromServer(id))},
         editEmployeeCompleted:(val) =>{dispatch(actions.editEmployeeCompleted(val))},
