@@ -1,11 +1,12 @@
 'use strict';
-const express    = require('express');        
-const routerEmployees = express.Router();     
+// import express from 'express';
+const express    = require('express');       
+const routerEmployees = express.Router();
 
 const Employee     = require('./employee-module');
 
 routerEmployees.get('/', (req, res) => {
-    res.json({ message: 'welcome to employment api!' });   
+    res.json({ message: 'welcome to employment api!' });
 });
 
 //post new employee
@@ -24,19 +25,19 @@ routerEmployees.post('/employees', (req, res) => {
                             if (err) {
                                 res.status(500).json({ error: err });
                             }else{
-                                res.status(200).json("created successed")
+                                res.status(200).json("created successed");
                             }
-                        })
-                    } 
-                })
+                        });
+                    }
+                });
             }
-        })
+        });
     }else{
         Employee.create(req.body.employee,(err, employ)=>{
             if(err){
-                res.status(500).json({error: err})
+                res.status(500).json({error: err});
             }else{
-                res.status(200).json("created successed")
+                res.status(200).json("created successed");
             }
         })
     }    

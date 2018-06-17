@@ -12,7 +12,7 @@ class EmployeeRow extends Component {
             <tr>
                 <td><Button className="buttons"><Link to={{ pathname: `/editemployee/${this.props._id}` }}>Edit</Link></Button></td>
                 <td><Button className="buttons"  onClick ={()=>this.props.deleteRow(this.props._id)} >Delete</Button></td>
-                <td><img src={this.props.picture}/></td>
+                <td><img width="50px" src={this.props.picture}/></td>
                 <td>{this.props.name}</td>
                 <td>{this.props.title}</td>
                 <td>{this.props.sex}</td>
