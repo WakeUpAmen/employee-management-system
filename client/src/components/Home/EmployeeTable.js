@@ -12,10 +12,15 @@ class EmployeeTable extends Component {
     editRowCallBack=()=>{
         this.props.callbackFromRoot_edit();
     }
-
+    getChildren=(id)=>{
+        this.props.getChildrenFromServer(id); 
+    }
+    getManager=(id) => {
+        this.props.getManagerFromServer(id);
+    }
     render() {
         const rows = [];
-        this.props.employees.forEach((employee) => {
+        this.props.pageEmployees.forEach((employee) => {
             if (employee.name.indexOf(this.props.filterText) !== -1 ) {
                 rows.push( <EmployeeRow 
                                 _id = {employee._id}
@@ -33,6 +38,8 @@ class EmployeeTable extends Component {
                                 startDate={employee.startDate}
                                 editRow={this.props.editRowCallBack} 
                                 deleteRow ={this.props.deleteOneEmployee} 
+                                getChildren={this.getChildren}
+                                getManager={this.getManager}
                                 // deleteEmployeeCompleted={this.props.deleteEmployeeCompleted}
                                 />
                 );
@@ -70,13 +77,14 @@ const mapStateToProps = state => {
     console.log("home map, state.employees")
     return {
         filterText: state.myEmployeeListR.filterText,
-        employees: state.myEmployeeListR.employees,
+        pageEmployees: state.myEmployeeListR.pageEmployees,
     }
 };
 
 function mapDispatchToProps(dispatch) {
     return({
-        getAllEmployeesFromServer: () =>{dispatch(actions.getAllEmployeesFromServer())},
+        getChildrenFromServer: (id) =>{dispatch(actions.getChildrenFromServer(id))},
+        getManagerFromServer: (id) => {dispatch(actions.getManagerFromServer(id))},
       })
 };
 

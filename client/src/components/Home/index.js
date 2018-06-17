@@ -10,11 +10,22 @@ import{Button} from 'react-bootstrap';
 
 
 class Home extends Component {
+    constructor(props){
+        super(props);
+        this.state={didUpdate:false}
+    }
     componentDidMount(){
         console.log("home did mount")
         this.props.getAllEmployeesFromServer();
         this.props.editEmployeeCompleted(false);
         this.props.newEmployeeCompleted(false);
+    }
+    componentDidUpdate(){
+        console.log("did update:"+this.state.didUpdate)
+        if(this.state.didUpdate === true){
+            this.props.getAllEmployeesFromServer();
+            this.setState({didUpdate: false})
+        }
     }
     handleFilterTextChange = (filterText) => {
         this.props.setFilterText(filterText);
@@ -22,15 +33,13 @@ class Home extends Component {
 
     deleteOneEmployee = (index)=>{
         this.props.deleteOneEmployee(index);
+        this.setState({didUpdate: true});
     }
     setSort =(str)=>{
         this.props.setSort(str);
     }
-    getPageEmployees=(page)=>{
-        this.props.getPageEmployees(page);
-    }
+
     render() {
-        console.log("home render")
         if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
         }
@@ -44,7 +53,7 @@ class Home extends Component {
                 </div>
                 <div classname="div-container" style={{width: "40%", float: "right"}}>
                     <Button  className="buttons" ><Link to="/newemployee">Create new user</Link></Button>
-
+                    <Button className="buttons" style={{width: "20%", float: "right"}} ><Link to={{ pathname: '/'  }} onClick={this.props.getAllEmployeesFromServer}>Show All</Link></Button>
                 </div>
                 <ScrollArea speed={0.8} className="area"   horizontal={true} vertical ={true}>
                     <EmployeeTable 
@@ -69,8 +78,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("home map, state.employees")
-    console.log(state.employees)
     return {
         filterText: state.myEmployeeListR.filterText,
         hasErrored: state.myEmployeeListR.hasError,
@@ -87,7 +94,6 @@ function mapDispatchToProps(dispatch) {
         deleteOneEmployee:(id) =>{dispatch(actions.deleteOneFromServer(id))},
         editEmployeeCompleted:(val) =>{dispatch(actions.editEmployeeCompleted(val))},
         newEmployeeCompleted:(val) => {dispatch(actions.newEmployeeCompleted(val))},
-        getPageEmployees:(page)=>{dispatch(actions.getPageEmployees(page))},
       })
 };
 

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
 
 const initialState ={
+    pageEmployees:[],
     employees: [],
     children: [],
     offsprings:[],
@@ -71,10 +72,10 @@ export const myEmployeeListR =(state = initialState, action)=>{
         case 'SET_FILTERTEXT':
             return {...state, filterText: action.text};
 
-        case 'GET_CHILDREN':
-            return {...state, children: action.data};
-        case 'GET_MANAGER':
-            return {...state, manager: action.data};
+        // case 'GET_CHILDREN':
+            // return {...state, children: action.data};
+        // case 'GET_MANAGER':
+            // return {...state, manager: action.data};
         case 'GET_OFFSPRINGS':
             let res = [];
             let stack = [];
@@ -90,7 +91,11 @@ export const myEmployeeListR =(state = initialState, action)=>{
             }
             console.log("res:")
             console.log(res)
-            return {...state, offsprings: res};       
+            return {...state, offsprings: res};   
+        case 'SET_PAGEEMPLOYEES':
+            console.log("action.data")
+            console.log(action.data)
+            return {...state, pageEmployees: action.data};
         default:
             return state;
     }

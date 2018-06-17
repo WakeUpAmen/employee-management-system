@@ -16,7 +16,6 @@ class App extends Component {
             <Route exact={true} path="/" component={Home} />
             <Route path="/editemployee/:employeeId" component={EditEmployee} />
             <Route path="/newemployee" component={NewEmployee} />
-            <Route path="/children/:employeeId" component={ChildrenList} />
             </Switch>
       </BrowserRouter>
     );

@@ -21,12 +21,12 @@ class EmployeeRow extends Component {
                 <td>{this.props.SMS}</td>
                 <td><a href={`mailto:${this.props.email}`}>{this.props.email}</a></td>
                 {
-                    this.props.children != 0? <td><Link to={{ pathname: `/children/${this.props._id}`  }}>{this.props.children}</Link></td>:
+                    this.props.children != 0? <td><Link to={{ pathname: '/'}} onClick={()=>this.props.getChildren(this.props._id)}>{this.props.children}</Link></td>:
                     <td>{this.props.children}</td>
                 }
                 {
                     this.props.manager === null? <td>------</td>:
-                    <td><Link to={{ pathname: `/editemployee/${this.props.manager}` }}>{this.props.managerName}</Link></td>
+                    <td><Link to={{ pathname: '/'}} onClick={()=>this.props.getManager(this.props.manager)}>{this.props.managerName}</Link></td>
                 }
                 <td>{this.props.startDate}</td>
             </tr>

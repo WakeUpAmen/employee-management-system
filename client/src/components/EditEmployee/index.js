@@ -83,7 +83,7 @@ class EditEmployee extends Component{
                 <FormGroup>
                 <ControlLabel className="labels">Picture:</ControlLabel>
                 <FormControl  type="file"  onChange={this.pictureChange}/>
-                    {<Image src={this.props.picture} rounded />}
+                    {<Image width="50px" src={this.props.picture} rounded />}
                 </FormGroup>
                 <FormGroup>
                     <ControlLabel className="labels">Name:</ControlLabel>

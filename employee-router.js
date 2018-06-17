@@ -77,7 +77,19 @@ routerEmployees.get('/employees/:id', (req, res) => {
         }
     });
 });
-//
+// get children
+routerEmployees.get('/employees/children/:id', (req, res) => {
+    Employee.find({manager: req.params.id}, (err, employees) => {
+        if (err) {
+            res.status(500).json({ error: err });
+        } else {
+            console.log(employees)
+            res.status(200).json({employees})
+        }
+    });
+});
+
+//put 
 routerEmployees.put('/employees/:_id', (req, res) => {
     //有没有改 manager，没改的话，直接update； 改了manager， 原manager的children少一个，现manager的children多一个
     Employee.findById(req.params._id, (err, ee) => {

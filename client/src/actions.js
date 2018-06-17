@@ -8,6 +8,7 @@ export function getAllEmployeesFromServer() {
         .then(response => {
             console.log(response.data)
             dispatch(getAll(response.data));
+            dispatch(setPageEmployees(response.data));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -17,6 +18,45 @@ export function getAllEmployeesFromServer() {
     }
 }
 
+export function getChildrenFromServer(id){
+    return (dispatch)=> {
+        dispatch(dataLoading(true));
+        axios.get("http://localhost:8888/api/employees/children/"+ id, {
+            id: id
+        })
+        .then((response) =>{
+            console.log("children:")
+            console.log(response.data.employees)
+            dispatch(setPageEmployees(response.data.employees));
+            dispatch(dataLoading(false));
+
+        })
+        .catch(err => {
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
+        })
+    }
+}
+
+export function getManagerFromServer(id){
+    return (dispatch)=> {
+        dispatch(dataLoading(true));
+        axios.get("http://localhost:8888/api/employees/"+ id, {
+            id: id
+        })
+        .then((response) =>{
+            console.log("manager:")
+            console.log(response.data.employee)
+            dispatch(setPageEmployees([response.data.employee]));
+            dispatch(dataLoading(false));
+
+        })
+        .catch(err => {
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
+        })
+    }
+}
 export function getEmployeeByIdFromServer(id) {
     return (dispatch) => {
         dispatch(dataLoading(true));
@@ -25,9 +65,9 @@ export function getEmployeeByIdFromServer(id) {
         })
         .then((response) => {
             dispatch(getEmployeeById(response.data.employee));
-            dispatch(getChildren(response.data.children));
-            dispatch(getmanager(response.data.manager));
-            dispatch(getOffspringsById(response.data.employee));
+            // dispatch(getChildren(response.data.children));
+            // dispatch(getmanager(response.data.manager));
+            // dispatch(getOffspringsById(response.data.employee));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -210,17 +250,21 @@ export const getPageEmployees=(page)=>({
     type: 'GET_EMPLOYEES',
     page
 })
-export const getChildren=(data)=>({
-    type: 'GET_CHILDREN',
-    data
-})
+// export const getChildren=(data)=>({
+//     type: 'GET_CHILDREN',
+//     data
+// })
 
-export const getmanager =(data)=>({
-    type: 'GET_MANAGER',
-    data
-})
+// export const getmanager =(data)=>({
+//     type: 'GET_MANAGER',
+//     data
+// })
 
 export const getOffspringsById=(employee)=>({
     type: 'GET_OFFSPRINGS',
     employee
+})
+export const setPageEmployees = (data)=>({
+    type: 'SET_PAGEEMPLOYEES',
+    data
 })

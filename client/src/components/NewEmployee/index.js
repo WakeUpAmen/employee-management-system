@@ -8,7 +8,7 @@ import {Form, FormGroup, FormControl,ControlLabel, Button, DropdownButton, MenuI
 class NewEmployee extends Component{
     constructor(props){
         super(props);
-        this.state ={file: "", imagePreviewUrl: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"manager name", startDate:"", name:""};     
+        this.state ={file: "", imagePreviewUrl: "", name:"", title :"",sex:"",officePhone:"", cellPhone:"", SMS:"", email:"",children:"",manager:"manager name", startDate:"", managerName:""};     
     } 
     pictureChange=(e)=>{
         e.preventDefault();
@@ -67,8 +67,7 @@ class NewEmployee extends Component{
     }
     managerChange=(eventKey, e)=>{
         this.setState({manager: eventKey});
-        this.props.setManagerName(e.target.innerHTML);
-
+        this.setState({managerName:e.target.innerHTML});
     }
     startDateChange=(e)=>{
         this.setState({startDate: e.target.value});
@@ -76,7 +75,7 @@ class NewEmployee extends Component{
     render (){
         let imagePreview = null;
         if (this.state.imagePreviewUrl) {
-            imagePreview = (<Image src={this.state.imagePreviewUrl} rounded/>);
+            imagePreview = (<Image width="50px" src={this.state.imagePreviewUrl} rounded/>);
         } else {
             imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
         }
